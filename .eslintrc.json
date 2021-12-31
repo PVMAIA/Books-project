@@ -31,6 +31,7 @@
         "no-undef": "off",
         "import/no-unresolved": "error",
         "react/require-default-props": "off",
+        "no-shadow": "off",
         "import/extensions": [
             "error",
             "ignorePackages",

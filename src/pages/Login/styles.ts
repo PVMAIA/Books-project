@@ -31,12 +31,14 @@ export const Logo = styled.img`
 export const Title = styled.h5`
    margin: 0 16px;
    font-size: 22pt;
-   color: #fff;
+   color: #ffffff;
    font-weight: 300;
    font-family: 'Heebo', sans-serif;
 `;
 
-export const ContainerForm = styled.div``;
+export const ContainerForm = styled.div`
+   position: relative;
+`;
 
 export const ButtonLogin = styled.button`
    width: 85px;
@@ -50,4 +52,49 @@ export const ButtonLogin = styled.button`
    font-weight: 700;
    font-size: 13pt;
    font-family: 'Heebo', sans-serif;
+
+   &:hover {
+      background: #b22e6f;
+      color: #ffffff;
+   }
+`;
+
+export const SpanError = styled.span`
+   width: 239px;
+   height: 36px;
+   position: absolute;
+   text-align: center;
+   visibility: hidden;
+   background: rgba(255, 255, 255, 0.4);
+   backdrop-filter: blur(2px);
+   border-radius: 4px;
+   color: #fff;
+   padding: 5px 10px;
+
+   font-family: 'Heebo', sans-serif;
+   font-style: normal;
+   font-weight: bold;
+   font-size: 13pt;
+   line-height: 34px;
+
+   &::after {
+      content: '';
+      position: absolute;
+      bottom: 100%;
+      left: 8%;
+      margin-left: -8px;
+      width: 0;
+      height: 0;
+      border-bottom: 8px solid rgba(255, 255, 255, 0.4);
+      border-right: 8px solid transparent;
+      border-left: 8px solid transparent;
+   }
+
+   &.visibility {
+      visibility: visible;
+      opacity: 0.9;
+      top: 158px;
+      left: 0;
+      z-index: 999;
+   }
 `;

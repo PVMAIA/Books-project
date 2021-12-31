@@ -2,18 +2,23 @@ import { ReactNode } from 'react';
 
 import { Container, Content, Label, InputStyled } from './styles';
 
-interface InputProps {
+interface Props {
    children?: ReactNode;
    label: string;
    type: string;
+   onChange(value: string): void;
 }
 
-const Input = ({ children, label, type }: InputProps) => {
+const Input = ({ label, type, onChange, children }: Props) => {
    return (
       <Container>
          <Content>
             <Label htmlFor={label}>{label}</Label>
-            <InputStyled id={label} type={type} />
+            <InputStyled
+               onChange={(event) => onChange(event.target.value)}
+               id={label}
+               type={type}
+            />
          </Content>
          {children}
       </Container>
