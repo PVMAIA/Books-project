@@ -1,4 +1,7 @@
-import { FC } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../../contexts/auth';
 
 import Input from '../../components/Input';
 
@@ -12,9 +15,20 @@ import {
    Title,
    ContainerForm,
    ButtonLogin,
+   SpanError,
 } from './styles';
 
-const Login: FC = () => {
+const Login = () => {
+   const navigate = useNavigate();
+   const context = useAuth();
+   const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+
+   const handleLogin = async (email: string, password: string) => {
+      await context.Login(email, password);
+      navigate('/home');
+   };
+
    return (
       <Container>
          <Content>
@@ -23,10 +37,24 @@ const Login: FC = () => {
                <Title>Books</Title>
             </ContainerHeader>
             <ContainerForm>
-               <Input type="email" label="Email" />
-               <Input type="password" label="Senha">
-                  <ButtonLogin type="button">Entrar</ButtonLogin>
+               <Input
+                  onChange={(value) => setEmail(value)}
+                  type="email"
+                  label="Email"
+               />
+               <Input
+                  onChange={(value) => setPassword(value)}
+                  type="password"
+                  label="Senha">
+                  <ButtonLogin
+                     onClick={() => handleLogin(email, password)}
+                     type="button">
+                     Entrar
+                  </ButtonLogin>
                </Input>
+               <SpanError className={context.errorLogin ? 'visibility' : ''}>
+                  {context.errorLogin || 'Email e/ou senha incorretos.'}
+               </SpanError>
             </ContainerForm>
          </Content>
       </Container>

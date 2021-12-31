@@ -22,7 +22,7 @@ export const Content = styled.div`
 `;
 
 export const Label = styled.label`
-   color: #fff;
+   color: #ffffff;
    font-family: 'Heebo', sans-serif;
    font-size: 10pt;
    opacity: 0.5;
@@ -32,10 +32,19 @@ export const InputStyled = styled.input`
    background: transparent;
    outline: 0;
    border: none;
-   color: #fff;
+   color: #ffffff;
    font-family: 'Heebo', sans-serif;
    font-style: normal;
    font-weight: normal;
    font-size: 16px;
    line-height: 24px;
+
+   -webkit-text-fill-color: #ffffff !important;
+
+   &:-webkit-autofill,
+   &:-webkit-autofill:hover,
+   &:-webkit-autofill:focus,
+   &:-webkit-autofill:active {
+      transition: background-color 8000s ease-in-out 0s;
+   }
 `;
