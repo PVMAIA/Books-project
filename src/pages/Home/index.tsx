@@ -94,7 +94,8 @@ const Home = () => {
 
    const handleLogout = () => {
       Logout();
-      navigate('/');
+      navigate('/login');
+      window.location.reload();
    };
 
    const handleBookListing = async (page = 1) => {
