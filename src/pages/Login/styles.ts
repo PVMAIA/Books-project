@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import HomeBackgroundImage from '../../assets/HomeBackgroundImage.png';
+import LoginBackgroundImage from '../../assets/LoginBackgroundImage.png';
+import LoginBackgroundImageMobile from '../../assets/LoginBackgroundImageMobile.png';
 
 export const Container = styled.div`
    display: flex;
@@ -8,13 +9,27 @@ export const Container = styled.div`
    position: relative;
    height: 100vh;
    width: 100vw;
-   background: url(${HomeBackgroundImage});
+   background: url(${LoginBackgroundImage});
    background-size: 100% 100%;
    background-repeat: no-repeat;
+
+   @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+      background: url(${LoginBackgroundImageMobile});
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+   }
+
+   @media only screen and (max-device-width: 950px) {
+      justify-content: center;
+   }
 `;
 
 export const Content = styled.div`
    margin-left: 115px;
+
+   @media only screen and (min-device-width: 320px) and (max-device-width: 950px) {
+      margin-left: 0;
+   }
 `;
 
 export const ContainerHeader = styled.div`
@@ -52,10 +67,20 @@ export const ButtonLogin = styled.button`
    font-weight: 700;
    font-size: 13pt;
    font-family: 'Heebo', sans-serif;
+   transition: 300ms;
 
-   &:hover {
+   &:hover,
+   &:active {
       background: #b22e6f;
       color: #ffffff;
+   }
+
+   @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+      &:hover,
+      &:active {
+         background: #ffffff;
+         color: #b22e6f;
+      }
    }
 `;
 

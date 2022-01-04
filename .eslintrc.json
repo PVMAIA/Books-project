@@ -32,6 +32,10 @@
         "import/no-unresolved": "error",
         "react/require-default-props": "off",
         "no-shadow": "off",
+        "consistent-return": "off",
+        "react/no-array-index-key": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "no-promise-executor-return": "off",
         "import/extensions": [
             "error",
             "ignorePackages",

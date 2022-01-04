@@ -7,6 +7,8 @@ import {
    useState,
 } from 'react';
 
+import Utils from '../utils/Utils';
+
 import api from '../services/api';
 
 type User = {
@@ -21,7 +23,7 @@ interface AuthContextData {
    signed: boolean;
    user: User | null;
    errorLogin: string;
-   Login(email: string, password: string): Promise<void>;
+   Login(email: string, password: string): Promise<boolean>;
    Logout(): void;
 }
 
@@ -32,6 +34,23 @@ export const AuthProvider: FC = ({ children }) => {
    const [errorLogin, setErrorLogin] = useState('');
 
    async function Login(email: string, password: string) {
+      setErrorLogin('');
+
+      if (email.length === 0) {
+         setErrorLogin('O Email é obrigatório.');
+         return false;
+      }
+
+      if (!Utils.checkIfEmailIsValid(email)) {
+         setErrorLogin('Digite um email valido');
+         return false;
+      }
+
+      if (password.length === 0) {
+         setErrorLogin('A Senha é obrigatória.');
+         return false;
+      }
+
       const response = await api
          .post('/auth/sign-in', {
             email,
@@ -48,16 +67,21 @@ export const AuthProvider: FC = ({ children }) => {
          });
 
       if (!response) {
-         return;
+         return false;
       }
 
       setUser(response.data);
       localStorage.setItem('@App:user', JSON.stringify(response.data));
-      localStorage.setItem('@App:token', response.headers.authorization);
+      localStorage.setItem(
+         '@App:token',
+         `Bearer ${response.headers.authorization}`,
+      );
       localStorage.setItem(
          '@App:refresh-token',
          response.headers['refresh-token'],
       );
+
+      return true;
    }
 
    function Logout() {
