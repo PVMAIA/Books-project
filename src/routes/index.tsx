@@ -1,57 +1,57 @@
 import {
    Routes as RoutesContainer,
    Route,
-   useNavigate,
    useLocation,
    Navigate,
 } from 'react-router-dom';
 
-import { useAuth } from '../contexts/auth';
+import Home from '../pages/Home';
 
 import Login from '../pages/Login';
 
-function RequireAuth({ children }: { children: JSX.Element }) {
+function HandleAuth({ children }: { children: JSX.Element }) {
+   const path = window.location.pathname;
    const user =
       localStorage.getItem('@App:user') &&
       JSON.parse(String(localStorage.getItem('@App:user')));
    const location = useLocation();
 
+   if (user && path === '/') {
+      return <Navigate to="/home" state={{ from: location }} replace />;
+   }
+
    if (!user) {
-      return <Navigate to="/login" state={{ from: location }} replace />;
+      return <Navigate to="/" state={{ from: location }} replace />;
    }
 
    return children;
 }
 
-function Home() {
-   const navigate = useNavigate();
-   const { Logout } = useAuth();
-
-   const handleLogout = () => {
-      Logout();
-      navigate('/login');
-   };
-
-   return (
-      <div>
-         <h1>Home</h1>
-         <button type="button" onClick={() => handleLogout}>
-            Logout
-         </button>
-      </div>
-   );
-}
-
 const Routes = () => {
    return (
       <RoutesContainer>
-         <Route path="login" element={<Login />} />
+         <Route
+            path="/"
+            element={
+               <HandleAuth>
+                  <Login />
+               </HandleAuth>
+            }
+         />
+         <Route
+            path=":generic"
+            element={
+               <HandleAuth>
+                  <Home />
+               </HandleAuth>
+            }
+         />
          <Route
             path="home"
             element={
-               <RequireAuth>
+               <HandleAuth>
                   <Home />
-               </RequireAuth>
+               </HandleAuth>
             }
          />
       </RoutesContainer>

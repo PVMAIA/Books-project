@@ -12,6 +12,10 @@ export const Container = styled.div`
    & + & {
       margin-top: 16px;
    }
+
+   @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+      width: 324px;
+   }
 `;
 
 export const Content = styled.div`

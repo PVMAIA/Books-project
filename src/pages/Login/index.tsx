@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/auth';
@@ -25,8 +25,11 @@ const Login = () => {
    const [password, setPassword] = useState('');
 
    const handleLogin = async (email: string, password: string) => {
-      await context.Login(email, password);
-      navigate('/home');
+      await context.Login(email, password).then((response) => {
+         if (response) {
+            navigate('/home');
+         }
+      });
    };
 
    return (
@@ -47,7 +50,10 @@ const Login = () => {
                   type="password"
                   label="Senha">
                   <ButtonLogin
-                     onClick={() => handleLogin(email, password)}
+                     onClick={(event) => {
+                        event.preventDefault();
+                        handleLogin(email, password);
+                     }}
                      type="button">
                      Entrar
                   </ButtonLogin>
