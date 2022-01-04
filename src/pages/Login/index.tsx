@@ -28,6 +28,7 @@ const Login = () => {
       await context.Login(email, password).then((response) => {
          if (response) {
             navigate('/home');
+            window.location.reload();
          }
       });
    };
@@ -42,16 +43,17 @@ const Login = () => {
             <ContainerForm>
                <Input
                   onChange={(value) => setEmail(value)}
+                  onKeyPress={() => handleLogin(email, password)}
                   type="email"
                   label="Email"
                />
                <Input
                   onChange={(value) => setPassword(value)}
+                  onKeyPress={() => handleLogin(email, password)}
                   type="password"
                   label="Senha">
                   <ButtonLogin
-                     onClick={(event) => {
-                        event.preventDefault();
+                     onClick={() => {
                         handleLogin(email, password);
                      }}
                      type="button">
